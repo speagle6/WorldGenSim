@@ -1,19 +1,21 @@
 using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
 
 public class Material_Core : MonoBehaviour
 {
-    public string Name;
     public int Quantity;
-    public Node_Core linkednode;
+    public Vector3 vel;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        Refresh();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Refresh()
     {
-        
+        List<Component> scripts = new List<Component>(this.GetComponents(typeof(Component)));
+        scripts.RemoveAt(0);
+        scripts.RemoveAt(0);
     }
 }
