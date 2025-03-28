@@ -50,6 +50,5 @@ MonoBehaviour:
   X_neg_Adj: {fileID: 0}
   Z_plus_Adj: {fileID: 0}
   Z_neg_Adj: {fileID: 0}
-  materials: []
   NodeTotalFill: 0
-  NodeFillCap: 1000000
+  NodeFillCap: 100

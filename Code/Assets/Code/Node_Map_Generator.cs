@@ -1,14 +1,19 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class Node_Map_Generator : MonoBehaviour
 {
     public GameObject NodePrefab;
     public Vector3 Size;
+    public float update_freq;
 
     private GameObject newObject;
     private GameObject YObj;
     private GameObject XObj;
     private GameObject ZObj;
+
+
+    private List<GameObject> objects = new List<GameObject>();
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -39,14 +44,20 @@ public class Node_Map_Generator : MonoBehaviour
                         newObject.GetComponent<Node_Core>().Z_neg_Adj = ZObj;
                         ZObj.GetComponent<Node_Core>().Z_plus_Adj = newObject;
                     }
+                    objects.Add(newObject);
                 }
             }
         }
+
+        InvokeRepeating("Refresh", 2.0f, update_freq);
     }
 
-    // Update is called once per frame
-    void Update()
+    void Refresh()
     {
-        
+        foreach (GameObject obj in objects)
+        {
+            obj.GetComponent<Node_Core>().Refresh();
+        }
     }
+
 }

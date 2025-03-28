@@ -164,7 +164,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NodePrefab: {fileID: 1656786819053190512, guid: cda844325d67ec642b4f1dd2da7c663f, type: 3}
-  Size: {x: 1, y: 1, z: 1}
+  Size: {x: 1, y: 1, z: 10}
+  update_freq: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

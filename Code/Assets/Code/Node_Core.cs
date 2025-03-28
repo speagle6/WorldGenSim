@@ -16,25 +16,22 @@ public class Node_Core : MonoBehaviour
     public int NodeTotalFill;
     public int NodeFillCap;
     
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        Add_Resource("Dirt", 1);
-    }
 
     GameObject Get_Resource(string name)
     {
+        //gets resources by name
         return(transform.Find(name).gameObject);
     }
 
-    int Check_Space(int quantity)
+    public int Check_Space()
     {
-        return (NodeFillCap - NodeTotalFill) - quantity;
+        //allows other things to check if there is space
+        return NodeFillCap - NodeTotalFill;
     }
 
-    // Update is called once per frame
-    void Add_Resource(string name, int quantity)
+    public void Add_Resource(string name, int quantity)
     {
+        //adds resources based on name
         var Resource = transform.Find(name);
         if (!Resource)
         {
@@ -52,8 +49,9 @@ public class Node_Core : MonoBehaviour
         }
     }
 
-    void Remove_Resource(string name, int quantity)
+    public void Remove_Resource(string name, int quantity)
     {
+        //removes resources based on name
         var Resource = transform.Find(name).gameObject;
         Resource.GetComponent<Material_Core>().Quantity -= quantity;
         NodeTotalFill -= quantity;
@@ -65,6 +63,7 @@ public class Node_Core : MonoBehaviour
 
     public void Refresh()
     {
+        // handles each refresh loop
         foreach(Transform child in gameObject.transform)
         {
             child.gameObject.GetComponent<Material_Core>().Refresh();
