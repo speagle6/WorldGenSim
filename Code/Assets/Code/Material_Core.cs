@@ -39,6 +39,8 @@ public class Material_Core : MonoBehaviour
     public void Refresh()
     {
         handle_vel();
+        if (gravity) {handle_grav();}
+        if (flow) {handle_flow();}
     }
 
     void handle_vel()
@@ -101,5 +103,72 @@ public class Material_Core : MonoBehaviour
         }
     }
 
+    void handle_grav()
+    {
+        if (rigid)
+        {
+            float adj_mat_total = 0;
+            List<Material_Core> resources_to_check = new List<Material_Core>();
+            foreach (Transform child in node_handler.X_plus_Adj.transform)
+            {
+                resources_to_check.Add(child.gameObject.GetComponent<Material_Core>());
+            }
+            foreach (Transform child in node_handler.X_neg_Adj.transform)
+            {
+                resources_to_check.Add(child.gameObject.GetComponent<Material_Core>());
+            }
+            foreach (Transform child in node_handler.Y_plus_Adj.transform)
+            {
+                resources_to_check.Add(child.gameObject.GetComponent<Material_Core>());
+            }
+            foreach (Transform child in node_handler.Y_neg_Adj.transform)
+            {
+                resources_to_check.Add(child.gameObject.GetComponent<Material_Core>());
+            }
+            foreach (Transform child in node_handler.Z_plus_Adj.transform)
+            {
+                resources_to_check.Add(child.gameObject.GetComponent<Material_Core>());
+            }
+            foreach (Transform child in node_handler.Z_neg_Adj.transform)
+            {
+                resources_to_check.Add(child.gameObject.GetComponent<Material_Core>());
+            }
+
+            foreach (Material_Core material in resources_to_check)
+            {
+                if (material.rigid)
+                {
+                    if (rigid_same_only)
+                    {
+                        if (material.gameObject.name == gameObject.name)
+                        {
+                            adj_mat_total += material.Quantity;
+                        }
+                    }
+                    else
+                    {
+                        adj_mat_total += material.Quantity;
+                    }
+                    if (adj_mat_total * support_per_adj > Quantity * support_need_per)
+                    {
+                        vel.z -= grav_accel;
+                    }
+                }
+            }
+        }
+        else
+        {
+            vel.z -= grav_accel;
+        }
+        if (node_handler.Z_neg_Adj.GetComponent<Node_Core>().Check_Space() == 0)
+        {
+            vel.z = 0;
+        }
+    }
+
+    void handle_flow()
+    {
+
+    }
 
 }
