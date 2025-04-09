@@ -29,7 +29,7 @@ public class Node_Core : MonoBehaviour
         return NodeFillCap - NodeTotalFill;
     }
 
-    public void Add_Resource(string name, int quantity)
+    public void Add_Resource(string name, int quantity, Vector3 vel)
     {
         //adds resources based on name
         var Resource = transform.Find(name);
@@ -39,6 +39,7 @@ public class Node_Core : MonoBehaviour
             GameObject NewRes = (GameObject) Instantiate(prefab, new Vector3(0,0,0), Quaternion.identity);
             NewRes.transform.parent = transform;
             NewRes.GetComponent<Material_Core>().Quantity = quantity;
+            NewRes.GetComponent<Material_Core>().vel = vel;
             NewRes.name = name;
             NodeTotalFill += quantity;
         }
